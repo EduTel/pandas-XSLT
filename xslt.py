@@ -1,4 +1,5 @@
 #http://pandas.pydata.org/pandas-docs/stable/io.html#excel-files
+# python 2.7.15
 # Returns a DataFrame
 # pip install pandas
 # pip install xlrd
@@ -17,11 +18,12 @@ for sheet_names in sheet_names:
     df = df.dropna(how='all')
     data_sheet = list()
     if (not df.empty):
-        #print "_________________"+sheet_names+"_________________"
-        #iteritems = df.iteritems()
-        #print df
         for row in df.itertuples():
             sr = pd.Series(row).values.tolist()
             data_sheet.append(sr)
         _sheet_names.update({sheet_names:data_sheet})
-print _sheet_names
+for key,value in _sheet_names.items():
+    x = PrettyTable()
+    for row in value:
+        x.add_row(row)
+    print x
